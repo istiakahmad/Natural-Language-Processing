@@ -1,7 +1,8 @@
 """
 Tokenizing - Splitting sentences and words from the body of text.
 
-Corpus - Body of text, singular. Corpora is the plural of this. Example: A collection of medical journals.
+Corpus - Body of text, singular. Corpora is the plural of this.
+Generally, corpora are grouped by some sort of defining characteristic. Example: A collection of medical journals.
 
 Lexicon - Words and their meanings. Example: English dictionary. Consider, however, that various fields will have 
 different lexicons. For example: To a financial investor, the first meaning for the word "Bull" is someone who is 
@@ -50,7 +51,7 @@ word_tokens = word_tokenize(EXAMPLE_TEXT)
 # print(word_tokens)
 # print(filtered_sentence)
 
-
+                                            # Stemming
 """
 The idea of stemming is a sort of normalizing method. Many variations of words carry the same meaning, 
 other than when tense is involved.
@@ -94,31 +95,33 @@ sample_text = state_union.raw("2006-GWBush.txt")
 custom_sent_tokenizer = PunktSentenceTokenizer(train_text)
 
 tokenized = custom_sent_tokenizer.tokenize(sample_text)
-def process_content():
-    try:
-        for i in tokenized[:5]:
-            words = nltk.word_tokenize(i)
-            tagged = nltk.pos_tag(words)
-            # print(tagged)
-            #chunkGram = r"""Chunk: {<RB.?>*<VB.?>*<NNP>+<NN>?}"""
-            """
-            Chinking
-            }<VB.?|IN|DT|TO>+{
-            This means we're removing from the chink one or more verbs, prepositions, determiners, or the word 'to'. 
-            """
-            chunkGram = r"""Chunk: {<.*>+}
-                                            }<VB.?|IN|DT|TO>+{"""
-            chunkParser = nltk.RegexpParser(chunkGram)
-            chunked = chunkParser.parse(tagged)
 
-            print(chunked)
-            for subtree in chunked.subtrees(filter=lambda t: t.label() == 'Chunk'):
-                print(subtree)
-
-            chunked.draw()
-    except Exception as e:
-        print(str(e))
-process_content()
+# def process_content():
+#     try:
+#         for i in tokenized[:5]:
+#             words = nltk.word_tokenize(i)
+#             tagged = nltk.pos_tag(words)
+#             # print(tagged)
+#             #chunkGram = r"""Chunk: {<RB.?>*<VB.?>*<NNP>+<NN>?}"""
+#
+#             """
+#             Chinking
+#             }<VB.?|IN|DT|TO>+{
+#             This means we're removing from the chink one or more verbs, prepositions, determiners, or the word 'to'.
+#             """
+#             chunkGram = r"""Chunk: {<.*>+}
+#                                             }<VB.?|IN|DT|TO>+{"""
+#             chunkParser = nltk.RegexpParser(chunkGram)
+#             chunked = chunkParser.parse(tagged)
+#
+#             print(chunked)
+#             for subtree in chunked.subtrees(filter=lambda t: t.label() == 'Chunk'):
+#                 print(subtree)
+#
+#             chunked.draw()
+#     except Exception as e:
+#         print(str(e))
+# process_content()
 
                                                     # Chunking with NLTK
 
@@ -138,3 +141,95 @@ Chinking is a lot like chunking, it is basically a way for you to remove a chunk
 you remove from your chunk is your chink.
 """
 
+                                                    # Named Entity Recognition with NLTK
+'''
+One of the most major forms of chunking in natural language processing is called "Named Entity Recognition.
+" The idea is to have the machine immediately be able to pull out "entities" like people, places, things, locations,
+ monetary figures, and more.
+
+This can be a bit of a challenge, but NLTK is this built in for us. 
+There are two major options with NLTK's named entity recognition: either recognize all named entities, 
+or recognize named entities as their respective type, like people, places, locations, etc.
+'''
+#
+# def process_content():
+#     try:
+#         for i in tokenized[5:]:
+#             words = nltk.word_tokenize(i)
+#             tagged = nltk.pos_tag(words)
+#             namedEnt = nltk.ne_chunk(tagged, binary=True)
+#             namedEnt.draw()
+#     except Exception as e:
+#         print(str(e))
+# process_content()
+
+                                        # Lemmatizing
+
+
+from nltk.stem import WordNetLemmatizer
+'''
+A very similar operation to stemming is called lemmatizing. The major difference between these is, as you saw earlier, 
+stemming can often create non-existent words, whereas lemmas are actual words.
+
+So, your root stem, meaning the word you end up with, is not something you can just look up in a dictionary, 
+but you can look up a lemma.
+
+Some times you will wind up with a very similar word, but sometimes,
+ you will wind up with a completely different word. 
+'''
+
+# lemmatizer = WordNetLemmatizer()
+#
+# print(lemmatizer.lemmatize("cats"))     # Defualt parameter 'noun'
+# print(lemmatizer.lemmatize("cacti"))     # Defualt parameter 'noun'
+# print(lemmatizer.lemmatize("geese"))     # Defualt parameter 'noun'
+# print(lemmatizer.lemmatize("rocks"))     # Defualt parameter 'noun'
+# print(lemmatizer.lemmatize("pythons"))     # Defualt parameter 'noun'
+# print(lemmatizer.lemmatize("better", pos="a"))     # Defualt parameter 'pos' parts of speech
+# print(lemmatizer.lemmatize("best", pos="a"))
+# print(lemmatizer.lemmatize("run"))
+# print(lemmatizer.lemmatize("ran",'v'))      # ran past form of run
+
+                                        # The corpora
+
+
+# print(nltk.__file__)
+from nltk.corpus import gutenberg    # C:\Users\ishan\AppData\Roaming\nltk_data\corpora
+
+# sample text
+# sample = gutenberg.raw("bible-kjv.txt")
+#
+# tok = sent_tokenize(sample)
+# # print(tok[5:15])
+# for x in range(6):
+#     print(tok[x])
+
+                                        # Wordnet
+'''
+WordNet is a lexical database for the English language, which was created by Princeton, and is part of the NLTK corpus.
+
+You can use WordNet alongside the NLTK module to find the meanings of words, synonyms, antonyms, and more.
+'''
+from nltk.corpus import wordnet
+
+# syns = wordnet.synsets("program")
+# print(syns[0].name())               # An example of a synset:
+# print(syns[0].lemmas()[0].name())   # Just the word:
+# print(syns[0].definition())         # Definition of that first synset:
+# print(syns[0].examples())           # Examples of the word in use:
+
+# synonyms and antonyms
+# synonyms = []
+# antonyms = []
+# for syn in wordnet.synsets("bad"):
+#     for l in syn.lemmas():
+#         synonyms.append(l.name())
+#         if l.antonyms():
+#             antonyms.append(l.antonyms()[0].name())
+# print(set(synonyms))
+# print(set(antonyms))
+
+# compare the similarity of two words and their tenses
+# w1 = wordnet.synset('ship.n.01')
+# w2 = wordnet.synset('boat.n.01')
+# print(w1.wup_similarity(w2))
