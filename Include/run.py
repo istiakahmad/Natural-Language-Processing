@@ -194,7 +194,7 @@ Some times you will wind up with a very similar word, but sometimes,
 
 
 # print(nltk.__file__)
-from nltk.corpus import gutenberg    # C:\Users\ishan\AppData\Roaming\nltk_data\corpora
+from nltk.corpus import gutenberg    # C:\Users\ishan\AppData\Roaming\nltk_data\corpora  (TYPE %appdata% to find path)
 
 # sample text
 # sample = gutenberg.raw("bible-kjv.txt")
