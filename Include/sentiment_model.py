@@ -115,8 +115,9 @@ def sentiment(text):
     feats = find_features(text)
     return voted_classifier.classify(feats),voted_classifier.confidence(feats)
 
-print(sentiment("This movie was awesome! The acting was great, plot was wonderful, and there were pythons...so yea!"))
-print(sentiment("This movie was awesome! The acting was great, plot was wonderful, and there were pythons...so yea!"))
-print(sentiment('python is bad'))
-print(sentiment("This movie was utter junk. There were absolutely 0 pythons. I don't see what the point was at all. Horrible movie, 0/10"))
 
+# print(sentiment("This movie was awesome! The acting was great, plot was wonderful, and there were pythons...so yea!"))
+# print(sentiment("This movie was awesome! The acting was great, plot was wonderful, and there were pythons...so yea!"))
+# print(sentiment('python is bad'))
+# print(sentiment("This movie was utter junk. There were absolutely 0 pythons. I don't see what the point was at all. Horrible movie, 0/10"))
+#
