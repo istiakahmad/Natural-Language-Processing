@@ -54,18 +54,18 @@ def find_features(document):
 
     return features
 
-
-
-featuresets_f = open("Include/pickled_algos/featuresets.pickle", "rb")
-featuresets = pickle.load(featuresets_f)
-featuresets_f.close()
-
-random.shuffle(featuresets)
-print(len(featuresets))
-
-testing_set = featuresets[10000:]
-training_set = featuresets[:10000]
-
+#
+#
+# featuresets_f = open("Include/pickled_algos/featuresets.pickle", "rb")
+# featuresets = pickle.load(featuresets_f)
+# featuresets_f.close()
+#
+# random.shuffle(featuresets)
+# print(len(featuresets))
+#
+# testing_set = featuresets[10000:]
+# training_set = featuresets[:10000]
+#
 
 
 open_file = open("Include/pickled_algos/originalnaivebayes5k.pickle", "rb")
@@ -116,8 +116,8 @@ def sentiment(text):
     return voted_classifier.classify(feats),voted_classifier.confidence(feats)
 
 
+print(sentiment("This movie was awesome! The acting was great, plot was wonderful, and there were pythons...so yea!"))
 # print(sentiment("This movie was awesome! The acting was great, plot was wonderful, and there were pythons...so yea!"))
-# print(sentiment("This movie was awesome! The acting was great, plot was wonderful, and there were pythons...so yea!"))
-# print(sentiment('python is bad'))
+print(sentiment('python is bad'))
 # print(sentiment("This movie was utter junk. There were absolutely 0 pythons. I don't see what the point was at all. Horrible movie, 0/10"))
 #
