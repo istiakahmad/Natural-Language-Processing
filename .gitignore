@@ -2,4 +2,4 @@ Lib
 Scripts
 pip-selfcheck.json
 pyvenv.cfg
-Include/pickled_algos/
+Include/pickled_algos/featuresets.pickle
