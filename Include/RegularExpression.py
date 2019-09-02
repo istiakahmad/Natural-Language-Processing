@@ -97,12 +97,12 @@ print(x)                                # <_sre.SRE_Match object; span=(5, 7), m
 .group() returns the part of the string where there was a match
 '''
 
-x = re.search(r"\bS\w+", str)#Search for an upper case "S" character in the beginning of a word, and print its position:
+x = re.search(r"\bS\w+", txt)#Search for an upper case "S" character in the beginning of a word, and print its position:
 print(x.span())              # (12, 17)
 
-x = re.search(r"\bS\w+", str)#Search for an upper case "S" character in the beginning of a word, and print the word:
+x = re.search(r"\bS\w+", txt)#Search for an upper case "S" character in the beginning of a word, and print the word:
 print(x.group())             # Spain
 
-x = re.search(r"\bS\w+", str) #The string property returns the search string:
+x = re.search(r"\bS\w+", txt) #The string property returns the search string:
 print(x.string)                 # The rain in Spain
 
