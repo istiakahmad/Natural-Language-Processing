@@ -60,7 +60,7 @@ Set	        Description
 
 '''
 
-txt = "The rain in Spain"
+txt = "The  rain in Spain"
 
 x = re.search("^The.*Spain$", txt)          # Match
 
@@ -84,6 +84,10 @@ print(x)                                    # ['The', 'rain in Spain']
 
 x = re.sub("\s", "9", txt)                  # Replace all white-space characters with the digit "9":
 print(x)                                    # The9rain9in9Spain
+
+x = re.sub("\s+", " ", txt)                  # Replace all white-space characters with the digit "9":
+print(x)                                    # The9rain9in9Spain
+
 
 x = re.sub("\s", "9", txt, 2)           #Replace the first two occurrences of a white-space character with the digit 9:
 print(x)                                # The9rain9in Spain

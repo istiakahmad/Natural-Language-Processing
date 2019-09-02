@@ -1,4 +1,15 @@
 """
+before we start with any NLP project we need to pre-process it to make it ideal for working.
+Basic text pre-processing includes:
+
+Converting the entire text into uppercase or lowercase,
+so that the algorithm does not treat the same words in different cases as different
+
+Tokenization: Tokenization is just the term used to describe the process of converting
+the normal text strings into a list of tokens i.e words that we actually want.
+Sentence tokenizer can be used to find the list of sentences
+and Word tokenizer can be used to find the list of words in strings.
+
 Tokenizing - Splitting sentences and words from the body of text.
 
 Corpus - Body of text, singular. Corpora is the plural of this.
@@ -23,7 +34,7 @@ EXAMPLE_TEXT = "Hello Mr. Smith, how are you doing today? The weather is great, 
 
 # print("tokenize by word:")
 # print(word_tokenize(EXAMPLE_TEXT))
-
+                                        # stop words
 """
 we can recognize ourselves that some words carry more meaning than other words. We can also see that some words are 
 just plain useless, and are filler words.
@@ -55,10 +66,10 @@ word_tokens = word_tokenize(EXAMPLE_TEXT)
 """
 The idea of stemming is a sort of normalizing method. Many variations of words carry the same meaning, 
 other than when tense is involved.
-
 The reason why we stem is to shorten the lookup, and normalize sentences.
-
 One of the most popular stemming algorithms is the Porter stemmer, which has been around since 1979.
+Example if we were to stem the following words: “Stems”, “Stemming”, “Stemmed”, “and Stemtization”, 
+the result would be a single word “stem”.
 """
 from nltk.stem import PorterStemmer
 
@@ -164,18 +175,15 @@ or recognize named entities as their respective type, like people, places, locat
 # process_content()
 
                                         # Lemmatizing
-
-
 from nltk.stem import WordNetLemmatizer
 '''
 A very similar operation to stemming is called lemmatizing. The major difference between these is, as you saw earlier, 
 stemming can often create non-existent words, whereas lemmas are actual words.
-
 So, your root stem, meaning the word you end up with, is not something you can just look up in a dictionary, 
 but you can look up a lemma.
-
-Some times you will wind up with a very similar word, but sometimes,
- you will wind up with a completely different word. 
+Examples of Lemmatization are that “run” is a base form for words like “running” or “ran” or 
+that the word “better” and “good” are in the same lemma so they are considered the same.
+Some times you will wind up with a very similar word, but sometimes, you will wind up with a completely different word. 
 '''
 
 # lemmatizer = WordNetLemmatizer()
@@ -191,14 +199,12 @@ Some times you will wind up with a very similar word, but sometimes,
 # print(lemmatizer.lemmatize("ran",'v'))      # ran past form of run
 
                                         # The corpora
-
-
 # print(nltk.__file__)
 from nltk.corpus import gutenberg    # C:\Users\ishan\AppData\Roaming\nltk_data\corpora  (TYPE %appdata% to find path)
 
 # sample text
 # sample = gutenberg.raw("bible-kjv.txt")
-#
+
 # tok = sent_tokenize(sample)
 # # print(tok[5:15])
 # for x in range(6):
@@ -207,9 +213,9 @@ from nltk.corpus import gutenberg    # C:\Users\ishan\AppData\Roaming\nltk_data\
                                         # Wordnet
 '''
 WordNet is a lexical database for the English language, which was created by Princeton, and is part of the NLTK corpus.
-
 You can use WordNet alongside the NLTK module to find the meanings of words, synonyms, antonyms, and more.
 '''
+
 from nltk.corpus import wordnet
 
 # syns = wordnet.synsets("program")
@@ -233,3 +239,20 @@ from nltk.corpus import wordnet
 # w1 = wordnet.synset('ship.n.01')
 # w2 = wordnet.synset('boat.n.01')
 # print(w1.wup_similarity(w2))
+
+                                    # TF-IDF Approach
+'''
+A problem with the Bag of Words approach is that highly frequent words start to dominate in the document 
+(e.g. larger score), but may not contain as much “informational content”. 
+Also, it will give more weight to longer documents than shorter documents.
+
+One approach is to rescale the frequency of words by how often they appear in all documents 
+so that the scores for frequent words like “the” that are also frequent across all documents are penalized. 
+This approach to scoring is called Term Frequency-Inverse Document Frequency, or TF-IDF for short, where:
+
+Term Frequency: is a scoring of the frequency of the word in the current document.
+TF = (Number of times term t appears in a document)/(Number of terms in the document)
+
+Inverse Document Frequency: is a scoring of how rare the word is across documents.
+IDF = 1+log(N/n), where, N is the number of documents and n is the number of documents a term t has appeared in.
+'''
