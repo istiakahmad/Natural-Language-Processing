@@ -39,8 +39,6 @@ documents = pickle.load(documents_f)
 documents_f.close()
 
 
-
-
 word_features5k_f = open("Include/pickled_algos/word_features5k.pickle", "rb")
 word_features = pickle.load(word_features5k_f)
 word_features5k_f.close()
@@ -54,8 +52,7 @@ def find_features(document):
 
     return features
 
-#
-#
+
 # featuresets_f = open("Include/pickled_algos/featuresets.pickle", "rb")
 # featuresets = pickle.load(featuresets_f)
 # featuresets_f.close()
@@ -99,16 +96,12 @@ SGDC_classifier = pickle.load(open_file)
 open_file.close()
 
 
-
-
 voted_classifier = VoteClassifier(
                                   classifier,
                                   LinearSVC_classifier,
                                   MNB_classifier,
                                   BernoulliNB_classifier,
                                   LogisticRegression_classifier)
-
-
 
 
 def sentiment(text):
