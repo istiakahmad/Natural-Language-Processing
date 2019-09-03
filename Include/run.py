@@ -29,6 +29,15 @@ from nltk.tokenize import sent_tokenize, word_tokenize
 EXAMPLE_TEXT = "Hello Mr. Smith, how are you doing today? The weather is great, and Python is awesome. " \
                "The sky is pinkish-blue. You shouldn't eat cardboard."
 
+# # Split scene_one into sentences: sentences
+# sentences = sent_tokenize(EXAMPLE_TEXT)
+# # print(sentences)
+# # Use word_tokenize to tokenize the fourth sentence: tokenized_sent
+# tokenized_sent = word_tokenize(sentences[3])
+# # print(tokenized_sent)
+# # Make a set of unique tokens in the entire scene: unique_tokens
+# unique_tokens = set(word_tokenize(EXAMPLE_TEXT))
+# print(unique_tokens)
 # print("split up into a list of sentences:")
 # print(sent_tokenize(EXAMPLE_TEXT))
 
@@ -256,3 +265,4 @@ TF = (Number of times term t appears in a document)/(Number of terms in the docu
 Inverse Document Frequency: is a scoring of how rare the word is across documents.
 IDF = 1+log(N/n), where, N is the number of documents and n is the number of documents a term t has appeared in.
 '''
+

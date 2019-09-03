@@ -57,56 +57,128 @@ Set	        Description
 [a-zA-Z]	Returns a match for any character alphabetically between a and z, lower case OR upper case	
             [+]	In sets, +, *, ., |, (), $,{} has no special meaning, so [+] means: 
             return a match for any + character in the string
+ruby?
+Match "rub" or "ruby": the y is optional
+	
+ruby*
+Match "rub" plus 0 or more ys
+	
+ruby+
+Match "rub" plus 1 or more ys
+	
+\d{3}
+Match exactly 3 digits
+	
+\d{3,}
+Match 3 or more digits
+	
+\d{3,5}
+Match 3, 4, or 5 digits
 
 '''
+#
+# txt = "The  rain in Spain"
+#
+# x = re.search("^The.*Spain$", txt)          # Match
+#
+# x = re.findall("ai", txt)
+# print(x)                                    # ['ai', 'ai']
+#
+# x = re.findall("Portugal", txt)             # Make a search that returns no match:
+# print(x)                                    # []
+#
+# x = re.search("\s", txt)
+# print("first white-space character locate in:", x.start())  # The first white-space character is located in position: 3
+#
+# x = re.search("Portugal", txt)
+# print(x)                                    # None
+#
+# x = re.split("\s", txt)                     # Split at each white-space character:
+# print(x)                                    # ['The', 'rain', 'in', 'Spain']
+#
+# x = re.split("\s", txt, 1)                  # Split the string only at the first occurrence:
+# print(x)                                    # ['The', 'rain in Spain']
+#
+# x = re.sub("\s", "9", txt)                  # Replace all white-space characters with the digit "9":
+# print(x)                                    # The9rain9in9Spain
+#
+# x = re.sub("\s+", " ", txt)                  # Replace all white-space characters with the digit "9":
+# print(x)                                    # The9rain9in9Spain
+#
+#
+# x = re.sub("\s", "9", txt, 2)           #Replace the first two occurrences of a white-space character with the digit 9:
+# print(x)                                # The9rain9in Spain
+#
+# x = re.search("ai", txt)                #The search() function returns a Match object:
+# print(x)                                # <_sre.SRE_Match object; span=(5, 7), match='ai'>
+#
+# '''
+# .span() returns a tuple containing the start-, and end positions of the match.
+# .string returns the string passed into the function
+# .group() returns the part of the string where there was a match
+# '''
+#
+# x = re.search(r"\bS\w+", txt)#Search for an upper case "S" character in the beginning of a word, and print its position:
+# print(x.span())              # (12, 17)
+#
+# x = re.search(r"\bS\w+", txt)#Search for an upper case "S" character in the beginning of a word, and print the word:
+# print(x.group())             # Spain
+#
+# x = re.search(r"\bS\w+", txt) #The string property returns the search string:
+# print(x.string)                 # The rain in Spain
+#
 
-txt = "The  rain in Spain"
+my_string = "Let's write @RegEx! Here more than 10 rules are discussed. I would thanks to you."
+# pattern = r"\s+"    # [' ', ' ']
+# pattern = r"\W+"    # ["'", ' ', ' ', '!']
+# pattern = r"\w"         # ['L', 'e', 't', 's', 'w', 'r', 'i', 't', 'e', 'R', 'e', 'g', 'E', 'x']
+# pattern = r"\w+"    # ['Let', 's', 'write', 'RegEx']
+# pattern = r"[A-Z][a-z]"  # ['Le', 'Re', 'Ex']
+# pattern = r"[a-z][A-Z]"  # ['gE']
+# pattern = r"[@]\w+"     # ['@RegEx']
+# pattern = r"\S+"        # ["Let's", 'write', '@RegEx!']
+# pattern = r"\S"        # ['L', 'e', 't', "'", 's', 'w', 'r', 'i', 't', 'e', '@', 'R', 'e', 'g', 'E', 'x', '!']
+# print(re.findall(pattern, my_string))
+#
+# # Split my_string on sentence endings and print the result
+# sentence_endings = r"[.?!]"
+# print(re.split(sentence_endings, my_string))
+#
+# # Find all capitalized words in my_string and print the result
+# capitalized_words = r"[A-Z]\w+"
+# print(re.findall(capitalized_words, my_string))
+#
+# # Find all digits in my_string and print the result
+# digits = r"\d+"
+digits = r"[0-9]+"
+# print(re.findall(digits, my_string))
+                                            # Building Regular Expression
+from nltk.tokenize import regexp_tokenize
+print(regexp_tokenize(my_string, digits))
 
-x = re.search("^The.*Spain$", txt)          # Match
+# print(re.sub(r'[aeiou]+', '-', my_string))
 
-x = re.findall("ai", txt)
-print(x)                                    # ['ai', 'ai']
+text = """101   COM     Computers
+205   MAT   Mathematics
+189   ENG    English"""
 
-x = re.findall("Portugal", txt)             # Make a search that returns no match:
-print(x)                                    # []
+# 1. extract all course numbers
+# print(re.findall('[0-9]+', text))       # ['101', '205', '189']
+# 2. extract all course codes: match exactly 3 consequtive occurrences
+# print(re.findall('[A-Z]{3}', text))     # ['COM', 'MAT', 'ENG']
+# 3. extract all course names:  have at least 4 or more characters
+# print(re.findall('[A-Za-z]{4,}', text, re.IGNORECASE)) # ['Computers', 'Mathematics', 'English']
+# define the course text pattern groups and extract
+course_pattern = '([0-9]+)\s*([A-Z]{3})\s*([A-Za-z]{4,})'
+# print(re.findall(course_pattern, text))
 
-x = re.search("\s", txt)
-print("first white-space character locate in:", x.start())  # The first white-space character is located in position: 3
+phone = "2004-959-559 # This is Phone Number"
+# Delete Python-style comments
+num = re.sub(r'#.*$', "", phone)
+# print("Phone Num : ", num)
 
-x = re.search("Portugal", txt)
-print(x)                                    # None
+# the finite-state automaton for the regular expression is compiled once and reused.
+regularexpression = re.compile(r'\w+ou\w+')     # compiling regularexpression as a regex
+# print(regularexpression.findall(my_string))
 
-x = re.split("\s", txt)                     # Split at each white-space character:
-print(x)                                    # ['The', 'rain', 'in', 'Spain']
-
-x = re.split("\s", txt, 1)                  # Split the string only at the first occurrence:
-print(x)                                    # ['The', 'rain in Spain']
-
-x = re.sub("\s", "9", txt)                  # Replace all white-space characters with the digit "9":
-print(x)                                    # The9rain9in9Spain
-
-x = re.sub("\s+", " ", txt)                  # Replace all white-space characters with the digit "9":
-print(x)                                    # The9rain9in9Spain
-
-
-x = re.sub("\s", "9", txt, 2)           #Replace the first two occurrences of a white-space character with the digit 9:
-print(x)                                # The9rain9in Spain
-
-x = re.search("ai", txt)                #The search() function returns a Match object:
-print(x)                                # <_sre.SRE_Match object; span=(5, 7), match='ai'>
-
-'''
-.span() returns a tuple containing the start-, and end positions of the match.
-.string returns the string passed into the function
-.group() returns the part of the string where there was a match
-'''
-
-x = re.search(r"\bS\w+", txt)#Search for an upper case "S" character in the beginning of a word, and print its position:
-print(x.span())              # (12, 17)
-
-x = re.search(r"\bS\w+", txt)#Search for an upper case "S" character in the beginning of a word, and print the word:
-print(x.group())             # Spain
-
-x = re.search(r"\bS\w+", txt) #The string property returns the search string:
-print(x.string)                 # The rain in Spain
 
