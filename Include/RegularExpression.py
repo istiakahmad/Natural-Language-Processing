@@ -152,7 +152,7 @@ my_string = "Let's write @RegEx! Here more than 10 rules are discussed. I would 
 # digits = r"\d+"
 digits = r"[0-9]+"
 # print(re.findall(digits, my_string))
-                                            # Building Regular Expression
+                                            # Build Regular Expression
 from nltk.tokenize import regexp_tokenize
 print(regexp_tokenize(my_string, digits))
 
@@ -181,4 +181,8 @@ num = re.sub(r'#.*$', "", phone)
 regularexpression = re.compile(r'\w+ou\w+')     # compiling regularexpression as a regex
 # print(regularexpression.findall(my_string))
 
-
+# (?=) syntax is defines a look ahead. It match an entity that's followed by the pattern.
+pattern = re.compile(r"\w+(?=,)")
+print(pattern.findall("Me, myself, and I")) # ['Me', 'myself']
+pattern = re.compile(r'\w+(?=\sfox)')
+print(pattern.search("The quick brown fox").group())    # brown
